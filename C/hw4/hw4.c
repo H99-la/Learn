@@ -15,10 +15,10 @@ int main(int argc, char* argv[]){
 			d2b(argv[2]);
 			break;
 		case 3:	//btof;
-//			b2f(argv[2],argv[3],argv[4],argv[5]);
+			b2f(argv[2],argv[3],argv[4]);
 			break;
 		case 4:	//btod
-//			b2d(argv[2],argv[3],argv[4],argv[5]);
+			b2d(argv[2],argv[3],argv[4]);
 			break;
 		default:
 			puts("error");
@@ -27,72 +27,63 @@ int main(int argc, char* argv[]){
 	return 0;
 }
 
-void f2b(char* raw){
-	int out[32]={0};
-	long fi=(long) atof(raw);
-	float ff=atof(raw)-fi;
-	printf("%ld\t%.20f\n",fi,ff);
-	if(fi<0){	//sign;
-	       	*out=1;	
-//make fi,ff positive;
-		fi*=-1;
-		ff*=-1;
-	}
-
-//crying part of the game 1
-	int tmp[24]={0},n=0,tmpi[48]={0},expo=127;
-//fi:
-	if(fi){	//inreverse fi bit;
-		while(fi){
-			tmpi[n]=fi%2;
-			fi/=2;
-			n++;
-		}
-		expo+=(n-1);
-	}	
-		
-	for(int i=n;i>=0;i--)	//reversed fi bit;
-		tmp[n-i]=tmpi[i];
-
-//ff:	
-	for(;n<=47;n++){
-		ff*=2;
-		if(ff>=1) {
-			tmp[n]=1;
-			ff-=1;
-		}
-	}
-	if(expo==127){
-		for(int i=0;tmp[i]!=1){}
-	}
-
-
-
-// printout ;
-	printf("%d ",*out);
-	for(int i=1;i<9;i++)
-		printf("%d",*(out+i));
+void f2b(char* in){
+	float f=atof(in);
+	int *out=&f;
+	printf("%d",(*out>>31)%2==1?1:0);
 	printf(" ");
-	for(int i=9;i<32;i++)
-		printf("%d",*(out+i));
+	for(int i=2;i<=9;i++)
+		printf("%d",(*out>>(32-i))%2==1?1:0);
+	printf(" ");
+	for(int i=10;i<=32;i++)
+		printf("%d",(*out>>(32-i))%2==1?1:0);
 	printf("\n");
-
+}
+void d2b(char* in){
+	double d=atof(in);
+	long *out=&d;
+	printf("%d",(*out>>63)%2==1?1:0);
+	printf(" ");
+	for(int i=2;i<=12;i++)
+		printf("%d",(*out>>(64-i))%2==1?1:0);
+	printf(" ");
+	for(int i=13;i<=64;i++)
+		printf("%d",(*out>>(64-i))%2==1?1:0);
+	printf("\n");
 }
 
-void d2b(char* raw){
-	int out[64]={0};
-	long di=(long) atof(raw);
-	double df=atof(raw)-di;
-	printf("%ld\t%.20lf\n",di,df);
+void b2f(char* in1,char* in2,char* in3){
+	int bch=0;
+	float *f= &bch;
+	if(*in1=='1')
+	       	bch++;
+	for(int i=0;i<=7;i++){	
+		bch<<=1;
+		if(*(in2+i)=='1')
+		       	bch+=1;
+	}
+	for(int i=0;i<=22;i++){	
+		bch<<=1;
+		if(*(in3+i)=='1')
+		       	bch+=1;
+	}
+	printf("%.16f\n",*f);
+}
 
-// printout ;
-	printf("%d ",*out);
-	for(int i=1;i<12;i++)
-		printf("%d",*(out+i));
-	printf(" ");
-	for(int i=12;i<64;i++)
-		printf("%d",*(out+i));
-	printf("\n");
-
-
+void b2d(char* in1,char* in2,char* in3){
+	long bch=0;
+	double* d =&bch;
+	if(*in1=='1')
+	       	bch+=1;
+	for(int i=0;i<=10;i++){	
+		bch<<=1;
+		if(*(in2+i)=='1')
+		       	bch+=1;
+	}
+	for(int i=0;i<=51;i++){	
+		bch<<=1;
+		if(*(in3+i)=='1')
+		       	bch+=1;
+	}
+	printf("%.16lf\n",*d);
 }
