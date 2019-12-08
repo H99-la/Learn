@@ -1,0 +1,25 @@
+Script started on 2019-12-02 07:20:12+0800
+]0;h_ub@HVBU01: ~/Desktop/git/Learn/C/hw6[01;32mh_ub@HVBU01[00m:[01;34m~/Desktop/git/Learn/C/hw6[00m$ ./hw6 5 5
+[3J[H[2J[3J[H[2J? ? ? ? ? 
+? ? ? ? ? 
+? ? ? ? ? 
+? ? ? ? ? 
+? ? ? ? ? 
+
+Input :
+0 0
+0 0
+[3J[H[2J_ _ 1 ? ? 
+1 1 2 ? ? 
+? ? ? ? ? 
+? ? ? ? ? 
+? ? ? ? ? 
+
+Input :
+4 4
+
+you are dead!
+]0;h_ub@HVBU01: ~/Desktop/git/Learn/C/hw6[01;32mh_ub@HVBU01[00m:[01;34m~/Desktop/git/Learn/C/hw6[00m$ exit
+exit
+
+Script done on 2019-12-02 07:20:33+0800
